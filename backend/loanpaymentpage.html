@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking System - Loan Payment</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .complete-button {
+            background-color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Loan Payment</h2>
+        <table>
+            <tbody>
+                <tr>
+                    <th>Principal Amount</th>
+                    <td id="principal-amount"></td>
+                </tr>
+                <tr>
+                    <th>Interest Amount</th>
+                    <td id="interest-amount"></td>
+                </tr>
+                <tr>
+                    <th>Payment Amount</th>
+                    <td><input type="text" id="payment-amount" name="payment_amount" required></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="button complete-button" onclick="completePayment()">Complete Payment</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const loanId = urlParams.get('LoanID');
+
+            fetch(`/loanPaymentDetails?LoanID=${loanId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        document.getElementById('principal-amount').textContent = data.paymentDetails.PrincipalAmount;
+                        document.getElementById('interest-amount').textContent = data.paymentDetails.InterestAmount;
+                    } else {
+                        console.error('Failed to fetch payment details:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        function completePayment() {
+            const loanId = new URLSearchParams(window.location.search).get('LoanID');
+            const paymentAmount = document.getElementById('payment-amount').value;
+
+            fetch('/payLoan', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    LoanID: loanId,
+                    PaymentAmount: parseFloat(paymentAmount)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Payment completed successfully');
+                    window.location.href = 'Loans.html';
+                } else {
+                    alert('Failed to complete payment: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+</body>
+
+</html>

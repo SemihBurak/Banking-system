@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking System - Customer Home Page</title>
+    <style>
+         body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .profile h2 {
+            margin-top: 10px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            background-color: #008CBA; /* Profil butonunun rengi mavi */
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            margin: 0 5px; /* Butonlar arasında 5 piksel boşluk bırakır */
+        }
+
+        .button:hover {
+            background-color: #005f78; /* Hover durumunda rengi daha koyu mavi */
+        }
+
+        .button-green {
+            background-color: #4CAF50; /* Yeşil */
+        }
+
+        .button-green:hover {
+            background-color: #45a049; /* Hover durumunda daha koyu yeşil */
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="profile">
+            <img src="profile.jpg" alt="Profile Picture">
+            <h2 id="welcome-message">Welcome, [Customer Name]</h2>
+            <button class="button" onclick="window.location.href='ProfileInformation.html'">Profile</button>        
+        </div>
+        <div class="button-container">
+            <button class="button button-green" onclick="window.location.href='accountsandtheirinformation.html'">Accounts</button>
+            <button class="button button-green" onclick="window.location.href='transaction.html'">Transactions</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/customerDetails')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        document.getElementById('welcome-message').textContent = `Welcome, ${data.FirstName}`;
+                    } else {
+                        console.error('Failed to fetch customer details:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+
+</body>
+
+</html>

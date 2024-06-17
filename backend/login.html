@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking System</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            width: 48%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0 0 2%; /* Küçük bir ayar */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: left; /* Yeni eklenen stil */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .button-container {
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .button {
+            width: 100%;
+            background-color: #007bff; /* Mavi renk */
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3; /* Hover rengi */
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Login Page</h2>
+        <div class="button-container">
+            <form action="/login" method="post">
+                <input type="text" name="CustomerID" placeholder="ID">
+                <input type="password" name="CustomerPassword" placeholder="Password">
+                <input type="submit" value="Login as Customer">
+            </form>
+            <form action="/loginEmployee" method="post">
+                <input type="text" name="EmployeeID" placeholder="ID">
+                <input type="password" name="EmployeePassword" placeholder="Password">
+                <input type="submit" value="Login as Employee">
+            </form>
+        </div>
+        <p style="text-align: center;">Don't you have an account? <a href="register.html">Register</a></p>
+    </div>
+
+    <script>
+    $(document).ready(function() {
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+
+        var url = $(this).attr('action');
+        var data = $(this).serialize();
+
+        $.post(url, data, function(response) {
+            if (response.status === 'fail') {
+                alert(response.message);
+            } else {
+                if (url === '/login') {
+                    window.location.href = '/CustomerHomePage.html';
+                } else if (url === '/loginEmployee') {
+                    window.location.href = '/EmployeePage.html';
+                }
+            }
+        });
+    });
+});
+    </script>
+
+</body>
+
+</html>

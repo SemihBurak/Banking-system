@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking System - Account Information</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: block; /* Butonu blok element olarak ayarlar */
+            margin-top: 20px; /* Üstteki boşluğu ayarlar */
+            margin-bottom: 20px; /* Altta boşluk bırakır */
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Account Information</h2>
+        <form action="#" method="get" id="account_info_form">
+            <label for="account_id">Enter Account ID:</label>
+            <input type="text" id="account_id" name="account_id">
+            <!-- Removed the "View Loans" button -->
+        </form>
+        <table id="account_info_table" style="display:none;">
+            <thead>
+                <tr>
+                    <th>Account ID</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="account_id_cell">[Account ID]</td>
+                    <td id="balance_cell">[Balance]</td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="view_loans_button" class="button" style="display:none;" onclick=method()>View Loans</button>
+        <a href="Loans.html" id="view_loans_button" class="button">View Loans</a>
+    </div>
+
+    <script>
+        document.getElementById('account_id').addEventListener('input', function (e) {
+            var accountId = e.target.value;
+            // Sabit bakiye değeri
+            var balance = 10; // Örnek olarak 10 TL
+            // Tabloyu güncelle
+            document.getElementById('account_id_cell').textContent = accountId;
+            document.getElementById('balance_cell').textContent = balance + " TL";
+            // Tabloyu göster
+            document.getElementById('account_info_table').style.display = 'table';
+            // View Loans buttonunu göster
+    
+            
+        });
+    </script>
+
+</body>
+
+</html>

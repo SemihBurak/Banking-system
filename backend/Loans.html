@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking System - Loans Page</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Loans</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Loan Type</th>
+                    <th>Loan Amount</th>
+                    <th>Paid Amount</th>
+                    <th>Loan Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="loans-table-body">
+                <!-- Loan details will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/loans')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        const loans = data.loans;
+                        const loansTableBody = document.getElementById('loans-table-body');
+
+                        loans.forEach(loan => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${loan.LoanType}</td>
+                                <td>${loan.LoanAmount}</td>
+                                <td>${loan.PaidAmount}</td>
+                                <td>${loan.LoanStatus}</td>
+                                <td><a href="loanpaymentpage.html?LoanID=${loan.LoanID}" class="button">Pay Loan</a></td>
+                            `;
+                            loansTableBody.appendChild(row);
+                        });
+                    } else {
+                        console.error('Failed to fetch loans:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+
+</body>
+
+</html>
