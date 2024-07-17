@@ -40,6 +40,10 @@ This project is a web-based banking system that allows users to perform various 
     ```
 2. Open your web browser and go to `http://localhost:3000`.
 
+## ER Diagram
+
+<img width="493" alt="Resim1" src="https://github.com/user-attachments/assets/16c9237b-7865-4e39-ab71-c03281005fd6">
+
 ## Screenshots
 
 <img width="1509" alt="Ekran Resmi 2024-07-17 16 21 02" src="https://github.com/user-attachments/assets/8c5d40c5-c094-4395-841f-6986af933ee2">
